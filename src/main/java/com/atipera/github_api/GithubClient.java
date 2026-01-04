@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -24,7 +25,10 @@ public class GithubClient {
         try {
             Repository[] response =
                     restTemplate.getForObject(url, Repository[].class, username);
-            return List.of(response);
+            if (response == null) {
+                return List.of();
+            }
+            return Arrays.stream(response).toList();
         } catch (HttpClientErrorException.NotFound ex) {
             throw new UserNotFoundException("GitHub user not found");
         }
@@ -34,6 +38,9 @@ public class GithubClient {
         String url = baseUrl+"/repos/{owner}/{repo}/branches";
         Branch[] response =
                 restTemplate.getForObject(url, Branch[].class, owner, repo);
-        return List.of(response);
+        if (response == null) {
+            return List.of();
+        }
+        return Arrays.stream(response).toList();
     }
 }

@@ -1,5 +1,3 @@
 package com.atipera.github_api;
 
-public class Owner {
-    public String login;
-}
+public record Owner(String login) {}

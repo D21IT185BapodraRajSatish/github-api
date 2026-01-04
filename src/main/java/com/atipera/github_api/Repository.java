@@ -1,7 +1,3 @@
 package com.atipera.github_api;
 
-class Repository {
-    public String name;
-    public Owner owner;
-    public boolean fork;
-}
+public record Repository(String name, Owner owner, boolean fork) {}

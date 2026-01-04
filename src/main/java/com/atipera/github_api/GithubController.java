@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -18,7 +17,7 @@ public class GithubController {
     }
 
     @GetMapping("/{username}/repositories")
-    List<Map<String, Object>> getRepositories(@PathVariable String username) {
+    List<RepositoryResponse> getRepositories(@PathVariable String username) {
         return githubService.getUserRepositories(username);
     }
 }
